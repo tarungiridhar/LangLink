@@ -26,6 +26,8 @@ def connect(code1, code2):
     elif(not os.path.isfile(file1) and os.path.isfile(file2)):
         x = "\n".join(unread(code1, code2))
         read = open(file3, "r")
+        make = open(file1, "a+")
+        make.close()
         if (len(x) == 0):
             read.close()
             os.remove(file3)
@@ -67,6 +69,6 @@ def send(code1, code2, msg):
         return msg + "\n"
     elif (os.path.isfile(file1) and not os.path.isfile(file2) and os.path.isfile(file3)):
         inbox = open(file3, 'w')
-        inbox.write("\n" + msg)
+        inbox.write(code1 + ": " + msg + "\n")
         inbox.close()
         return "%"
