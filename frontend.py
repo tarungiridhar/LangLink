@@ -63,7 +63,7 @@ def incoming_sms():
             # If it is a command
             if (body[0] == '%'):
                 # If it is connect
-                if (body[1] == 'c'):
+                if (len(body) > 1 and body[1] == 'c'):
                     body = body.split(" ")
                     result = connect(num, body[1])
                     # x.append(body[1])
@@ -81,7 +81,7 @@ def incoming_sms():
                         content.close()
                         return respond(translate(result, findLang(body[1]), currLang))
                 # If it is disconnect
-                if (body[1] == 'd'):
+                elif (len(body) > 1 and body[1] == 'd'):
                     body = body.split(" ")
                     dis = peeps[x].pop(len(peeps[x])-1)
                     for y in range(0, len(peeps)):
@@ -91,6 +91,9 @@ def incoming_sms():
                     # UPDATE INFO.TXT
                     content.close()
                     return respond(translate(disconnect(num, dis), "en", currLang))
+                else:
+                    content.close()
+                    return respond(translate("Please enter a valid command", "en", currLang))
             # If it is a regular message
             else:
                 msg = send(peeps[x][0], peeps[x][len(peeps[x])-1], body)
