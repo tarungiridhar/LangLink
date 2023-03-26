@@ -9,15 +9,32 @@ def connect(code1, code2):
 
     # Checks to see if neither user is connected
     if(not os.path.isfile(file1) and not os.path.isfile(file2)):
+        x = "\n".join(unread(code1, code2))
+        read = open(file3, "r")
         make = open(file1, "a+")
         make.close()
-        return("%" + code1 + " connected!")
+        if (read.read == ""):
+            read.close()
+            os.remove(file3)
+            return("%" + code1 + " connected!")
+        else:
+            read.close()
+            os.remove(file3)
+            str = "%" + code1 + " connected, missed messages: " + x
+            return(str)
     #Checks to see if user2 is connected
     elif(not os.path.isfile(file1) and os.path.isfile(file2)):
+        x = "\n".join(unread(code1, code2))
         read = open(file3, "r")
-        str = "Successfully connected, missed messages: " + read.read()
-        os.remove(file3)
-        return(str)
+        if (read.read == ""):
+            read.close()
+            os.remove(file3)
+            return("Successfully connected!")
+        else:
+            read.close()
+            os.remove(file3)
+            str = "Successfully connected, missed messages: " + x
+            return(str)
     else:
         return("Already connected!")
 
@@ -32,6 +49,7 @@ def unread(code1, code2):
     with open(file3, 'w') as fp:
         print(*new, sep='\n', file=fp)
     file3.close()
+    return toread
 
 
 
