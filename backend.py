@@ -7,7 +7,7 @@ def connect(code1, code2):
     if(not os.path.isfile(file1) and not os.path.isfile(file2)):
         make = open(file1, "a+")
         make.close()
-        return("%")
+        return("%" + "New message from: ")
     elif(not os.path.isfile(file1) and os.path.isfile(file2)):
         read = open(file2, "r")
         str = "Successfully connected, missed messages: " + read.read()
