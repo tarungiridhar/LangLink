@@ -1,10 +1,4 @@
 +12407938030,Walter Ziffer,fr
 +17036084463,Devon Casey,en
-+13013666563,Trevor Ziffer,en,+18642750049
++13013666563,Trevor Ziffer,fr
 +18642750049,Tarun Giridhar,en
-
-
-
-
-
-

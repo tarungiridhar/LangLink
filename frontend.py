@@ -77,8 +77,11 @@ def incoming_sms():
                     # UPDATE INFO.TXT
                     content.close()
                     return respond(disconnect(num, body[1]))
-                # If it is a regular message
-            text(send(peeps[x][0], peeps[x][len(peeps[x])-1], body), peeps[x][len(peeps[x])-1])
+            # If it is a regular message
+            else:
+                msg = send(peeps[x][0], peeps[x][len(peeps[x])-1], body)
+                if (len(msg) > 0):
+                    text(msg, peeps[x][len(peeps[x])-1])
             content.close()
             return ""
     
@@ -87,8 +90,11 @@ def incoming_sms():
     body = request.values.get('Body', None)
     newUser = body.split(", ")
     content.write("\n"+num+","+newUser[0]+","+newUser[1])
-    return respond("Thank you for Registering!")
     content.close()
+    content = open(num+".txt", "w")
+    content.close()
+    return respond("Thank you for Registering!")
+    
 
 if __name__ == "__main__":
    app.run(host='localhost', debug=True, port=8080)
