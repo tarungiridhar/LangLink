@@ -1,23 +1,56 @@
 import os
 
-# Takes in the 
+# Takes in the user's number as code1 and who they want to connect to as code2
 def connect(code1, code2):
     file1 = code1+code2+".txt"
     file2 = code2+code1+".txt"
+    file3 = code1 + ".txt"
+    
+
+    # Checks to see if neither user is connected
     if(not os.path.isfile(file1) and not os.path.isfile(file2)):
         make = open(file1, "a+")
         make.close()
-        return("%" + "New message from: ")
+        return("%" + code1 + " connected!")
+    #Checks to see if user2 is connected
     elif(not os.path.isfile(file1) and os.path.isfile(file2)):
-        read = open(file2, "r")
+        read = open(file3, "r")
         str = "Successfully connected, missed messages: " + read.read()
+        os.remove(file3)
         return(str)
     else:
         return("Already connected!")
 
 
+def unread(code1, code2):
+    file3 = code1 + ".txt"
+    original = [line.strip() for line in open(file3)]
+    toread = [l for l in original if l.startswith(code2)]
+    new = [l for l in original if not l.startswith(code2)]
+    file3.close()
+    os.remove(file3)
+    with open(file3, 'w') as fp:
+        print(*new, sep='\n', file=fp)
+    file3.close()
+
+
+
 def disconnect(code1, code2):
     file1 = code1+code2+".txt"
     os.remove(file1)
+    file3 = code1 + ".txt"
+    inbox = open(file3, "a+")
+    inbox.close()
     return("Disconnected!")
 
+def send(code1, code2, msg):
+    file1 = code1+code2+".txt"
+    file2 = code2+code1+".txt"
+    file3 = code2 + ".txt"
+    if (os.path.isfile(file1) and os.path.isfile(file2)):
+        return msg
+    elif (os.path.isfile(file1) and not os.path.isfile(file2) and os.path.isfile(file3)):
+        inbox = open(file3, 'w')
+        inbox.write("\n" + code1 + ": " + msg)
+        inbox.close()
+        return ""
