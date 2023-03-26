@@ -80,7 +80,7 @@ def incoming_sms():
             # If it is a regular message
             else:
                 msg = send(peeps[x][0], peeps[x][len(peeps[x])-1], body)
-                if (len(msg) > 0):
+                if (msg[0] != '%'):
                     text(msg, peeps[x][len(peeps[x])-1])
             content.close()
             return ""
