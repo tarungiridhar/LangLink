@@ -25,6 +25,7 @@ def connect(code1, code2):
             read.close()
             str = "%" + code1 + " connected, missed messages: " + x
             return(str)
+        
     #Checks to see if user2 is connected
     elif(not os.path.isfile(file1) and os.path.isfile(file2)):
         x = "\n".join(unread(code1, code2))
@@ -42,7 +43,7 @@ def connect(code1, code2):
     else:
         return("Already connected!")
 
-
+# Shows unread messages based on the who the user is connected to
 def unread(code1, code2):
     file3 = code1 + ".txt"
     original = [line.strip() for line in open(file3)]
@@ -54,7 +55,7 @@ def unread(code1, code2):
     return toread
 
 
-
+# Disconnects the user 
 def disconnect(code1, code2):
     file1 = code1+code2+".txt"
     os.remove(file1)
@@ -63,6 +64,7 @@ def disconnect(code1, code2):
     inbox.close()
     return("Disconnected!")
 
+# Determines where to send a message
 def send(code1, code2, msg):
     file1 = code1+code2+".txt"
     file2 = code2+code1+".txt"
@@ -75,7 +77,7 @@ def send(code1, code2, msg):
         inbox.close()
         return "%"
     
-
+# Uses Microsoft Azure to translate the message
 def translate(msg, lang1, lang2):
     # Add your key and endpoint
     key = "ad13e552a674458f9201e1454bd3267b"
