@@ -2,6 +2,7 @@ import os
 import requests
 import uuid
 import json
+from dotenv import load_dotenv
    
 
 # Takes in the user's number as code1 and who they want to connect to as code2
@@ -80,7 +81,9 @@ def send(code1, code2, msg):
 # Uses Microsoft Azure to translate the message
 def translate(msg, lang1, lang2):
     # Add your key and endpoint
-    key = "ad13e552a674458f9201e1454bd3267b"
+    load_dotenv()
+    
+    key = os.getenv('AZURE_KEY')
     endpoint = "https://api.cognitive.microsofttranslator.com"
 
     # location, also known as region.
