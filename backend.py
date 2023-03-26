@@ -3,7 +3,7 @@ import os
 # Takes in the 
 def connect(code1, code2):
     file1 = code1+code2+".txt"
-    file2 = code1+code2+".txt"
+    file2 = code2+code1+".txt"
     if(not os.path.isfile(file1) and not os.path.isfile(file2)):
         make = open(file1, "a+")
         make.close()
