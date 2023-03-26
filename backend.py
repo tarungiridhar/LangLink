@@ -19,8 +19,7 @@ def connect(code1, code2):
             return("%" + code1 + " connected!")
         else:
             read.close()
-            os.remove(file3)
-            str = "%" + code1 + " connected!"
+            str = "%" + code1 + " connected, missed messages: " + x
             return(str)
     #Checks to see if user2 is connected
     elif(not os.path.isfile(file1) and os.path.isfile(file2)):
@@ -34,7 +33,6 @@ def connect(code1, code2):
             return("Successfully connected!")
         else:
             read.close()
-            os.remove(file3)
             str = "Successfully connected, missed messages: " + x
             return(str)
     else:
