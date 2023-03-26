@@ -15,8 +15,8 @@ def respond(message):
    return str(response)
 
 def text(message, num):
-    account_sid = os.getenv('TWILIO_ACCOUNT_SID') #os.environ['TWILIO_ACCOUNT_SID']
-    auth_token = os.getenv('TWILIO_AUTH_TOKEN') #os.environ['TWILIO_AUTH_TOKEN']
+    account_sid = os.getenv('TWILIO_ACCOUNT_SID') 
+    auth_token = os.getenv('TWILIO_AUTH_TOKEN') 
     client = Client(account_sid, auth_token)
     message = client.messages \
                 .create(
@@ -29,6 +29,8 @@ def findLang(num):
     content = open('info.txt',"r")
     str=content.read()
     peeps = str.split("\n")
+    for x in range(0, len(peeps)):
+        peeps[x] = peeps[x].split(",")
     for x in range (0, len(peeps)):
         if peeps[x][0] == num:
             content.close()
@@ -74,11 +76,10 @@ def incoming_sms():
 
                     # If new connection, tell other person you connected
                     if (result[0] == '%'):
-                        print()
                         text(translate(result[1:], "en", findLang(body[1])), body[1])
                     else: # You are already connected
                         content.close()
-                        return respond(translate(result, "en", currLang))
+                        return respond(translate(result, findLang(body[1]), currLang))
                 # If it is disconnect
                 if (body[1] == 'd'):
                     body = body.split(" ")
@@ -95,7 +96,7 @@ def incoming_sms():
                 msg = send(peeps[x][0], peeps[x][len(peeps[x])-1], body)
 
                 if (msg[0] != '%'):
-                    text(translate(msg, peeps[x][len(peeps[x]-2)], findLang(peeps[x][len(peeps[x])-1])), peeps[x][len(peeps[x])-1])
+                    text(translate(msg, currLang, findLang(peeps[x][len(peeps[x])-1])), peeps[x][len(peeps[x])-1])
             content.close()
             return ""
     
