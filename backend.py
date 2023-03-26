@@ -13,20 +13,20 @@ def connect(code1, code2):
         read = open(file3, "r")
         make = open(file1, "a+")
         make.close()
-        if (read.read == ""):
+        if (len(x) == 0):
             read.close()
             os.remove(file3)
             return("%" + code1 + " connected!")
         else:
             read.close()
             os.remove(file3)
-            str = "%" + code1 + " connected, missed messages: " + x
+            str = "%" + code1 + " connected!"
             return(str)
     #Checks to see if user2 is connected
     elif(not os.path.isfile(file1) and os.path.isfile(file2)):
         x = "\n".join(unread(code1, code2))
         read = open(file3, "r")
-        if (read.read == ""):
+        if (len(x) == 0):
             read.close()
             os.remove(file3)
             return("Successfully connected!")
@@ -69,4 +69,4 @@ def send(code1, code2, msg):
         inbox = open(file3, 'w')
         inbox.write("\n" + msg)
         inbox.close()
-        return ""
+        return "%"
