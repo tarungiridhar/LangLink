@@ -44,11 +44,9 @@ def unread(code1, code2):
     original = [line.strip() for line in open(file3)]
     toread = [l for l in original if l.startswith(code2)]
     new = [l for l in original if not l.startswith(code2)]
-    file3.close()
     os.remove(file3)
     with open(file3, 'w') as fp:
         print(*new, sep='\n', file=fp)
-    file3.close()
     return toread
 
 
@@ -66,9 +64,9 @@ def send(code1, code2, msg):
     file2 = code2+code1+".txt"
     file3 = code2 + ".txt"
     if (os.path.isfile(file1) and os.path.isfile(file2)):
-        return msg
+        return msg + "\n"
     elif (os.path.isfile(file1) and not os.path.isfile(file2) and os.path.isfile(file3)):
         inbox = open(file3, 'w')
-        inbox.write("\n" + code1 + ": " + msg)
+        inbox.write("\n" + msg)
         inbox.close()
         return ""
