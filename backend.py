@@ -68,7 +68,7 @@ def send(code1, code2, msg):
     if (os.path.isfile(file1) and os.path.isfile(file2)):
         return msg + "\n"
     elif (os.path.isfile(file1) and not os.path.isfile(file2) and os.path.isfile(file3)):
-        inbox = open(file3, 'w')
+        inbox = open(file3, 'a')
         inbox.write(code1 + ": " + msg + "\n")
         inbox.close()
         return "%"
